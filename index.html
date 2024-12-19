@@ -23,9 +23,8 @@
 		<button onclick="h()">h</button>
 	</section>
 	<section id="out">
-		<p></p>
+		<p id="default"></p>
 	</section>
-	<p id="info" title="base64(sha256({data}{key}))!1">i</p>
 
 	<script>
 		async function sha256(input) {
@@ -43,17 +42,20 @@
 			}
 
 			str = data + key
-			h = await sha256(str)
-			h = h + "!1"
-			document.querySelector("#out p").innerText = h
+			hash = await sha256(str)
+			def  = hash + "!1"
+			document.querySelector("#default").innerText       = def
 
 			try {
-				await navigator.clipboard.writeText(h);
+				await navigator.clipboard.writeText(hash);
+				document.querySelector("button").innerText = "copied ✓"
+				setTimeout(() => {
+					document.querySelector("button").innerText = "h"
+				}, 1500);
 			} catch (err) {
 				alert('Failed to copy to clipboard ' + err);
 			}
 		}
-
 	</script>
 
 </body>

@@ -11,7 +11,7 @@
 
 
 body{
-	width: 450px;
+	width: 550px;
 	margin: 0 auto;
 	margin-top: 100px;
 }
@@ -36,7 +36,7 @@ input:focus{
 }
 
 button{
-	margin-top: 10px;
+	margin-top: 30px;
 	width: 100%;
 	background-color: white;
 	color: black;
@@ -59,17 +59,17 @@ button:active{
 
 section#out{
 	margin-top: 20px;
+	color: transparent;
 }
 
 
-#info{
-	position: absolute;
-	bottom: 20px;
-	left: 50%; transform: translate(-50%);
-	border: 1px solid black;
-	color: black;
-	cursor: help;
-	width: 18px;height: 18px;
-	font-size: 12px;
-	text-align: center;
+@media only screen and (max-width: 768px) {
+	body{
+		width: 80%;
+	}
+	section#in div{
+		display: grid;
+		grid-template-columns: none;
+		row-gap: 10px;
+	}
 }
