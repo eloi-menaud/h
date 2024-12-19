@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="icon" href="./favicon.ico" type="image/x-icon">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="./style.css">
+
+	<title>h</title>
+</head>
+<body>
+	<section id="in">
+		<div>
+			<input id="data" type="password" placeholder="data">
+			<input id="key" type="password" placeholder="key">
+		</div>
+		<button onclick="h()">h</button>
+	</section>
+	<section id="out">
+		<p></p>
+	</section>
+	<p id="info" title="base64(sha256({data}{key}))!1">i</p>
+
+	<script>
+		async function sha256(input) {
+			const text_as_buffer = new TextEncoder().encode(input);
+			const hash_buffer = await window.crypto.subtle.digest("SHA-256", text_as_buffer);
+			const hash = btoa(String.fromCharCode(...new Uint8Array(hash_buffer)));
+			return hash;
+		}
+
+		async function h(){
+			data = document.getElementById("data").value
+			key  = document.getElementById("key").value
+			if (!data || !key){
+				return ""
+			}
+
+			str = data + key
+			h = await sha256(str)
+			h = h + "!1"
+			document.querySelector("#out p").innerText = h
+
+			try {
+				await navigator.clipboard.writeText(h);
+			} catch (err) {
+				alert('Failed to copy to clipboard ' + err);
+			}
+		}
+
+	</script>
+
+</body>
+</html>
